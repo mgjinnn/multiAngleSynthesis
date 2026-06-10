@@ -1,0 +1,19 @@
+# 忽略所有图片文件
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.gif
+*.tiff
+
+# 忽略 PyTorch 模型文件
+*.pt
+*.pth
+
+# 忽略结果目录（可选）
+results/
+
+# 忽略 Python 缓存
+__pycache__/
+*.pyc
+*.pyo
