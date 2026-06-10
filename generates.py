@@ -7,7 +7,6 @@ import os
 import sys
 from pathlib import Path
 
-# 添加当前目录到 Python 路径，以便导入 generate_images
 sys.path.insert(0, str(Path(__file__).parent))
 from generate_images import generate
 
