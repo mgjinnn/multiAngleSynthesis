@@ -8,11 +8,7 @@ Baseline Usage:
 ```bash
 ```
 
-docker: <br/>
-Driver Version: 560.35.03<br/>
-```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/clg_test/ai:1.0
-```
+
 
 ## Challenge Specifications<br/>
 ## Contest Rules

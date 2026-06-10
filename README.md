@@ -1,4 +1,4 @@
-# I2VAccelerationBaseline
+# multiAngleSynthesis
 
 简体中文 | [English](README_en.md)
 
@@ -9,11 +9,8 @@
 bash run.sh
 ```
 
-docker: <br/>
-Driver Version: 560.35.03<br/>
-```bash
-docker pull registry.cn-hangzhou.aliyuncs.com/clg_test/ai:1.0
-```
+
+
 
 ## 参赛规范 <br/>
 1) 工程开发目录需要在/workspace/multiAngleSynthesis/目录下, 启动脚本固定使用run.sh, 提交镜像中需使用baseline中的run.sh, evaluate.py和generates.py, 需保持和baseline一致, 测试数据目录结构保持与baseline一致. <br/>
