@@ -514,10 +514,20 @@ def main():
                 json.dump(json_result, f, indent=2, ensure_ascii=False)
             logger.info(f"JSON 结果已保存至: {args.output_json}")
 
-        # 生成只包含数据集平均得分的 results.txt 文件
+        # 计算各指标在所有组上的平均值
+        metrics_avg = {}
+        for metric in ["psnr", "ssim", "lpips", "lar_iqa", "group_score"]:
+            scores = [results.get(metric, 0.0) for results in all_results.values()]
+            metrics_avg[metric] = sum(scores) / len(scores) if scores else 0.0
+        
+        # 生成包含所有指标的 results.txt 文件
         with open("results.txt", "w", encoding="utf-8") as f:
-            f.write(f"{dataset_avg_score:.6f}\n")
-        logger.info(f"数据集平均得分已保存至: results.txt")
+            f.write(f"psnr: {metrics_avg['psnr']:.6f}\n")
+            f.write(f"ssim: {metrics_avg['ssim']:.6f}\n")
+            f.write(f"lpips: {metrics_avg['lpips']:.6f}\n")
+            f.write(f"lar_iqa: {metrics_avg['lar_iqa']:.6f}\n")
+            f.write(f"group_score: {metrics_avg['group_score']:.6f}\n")
+        logger.info(f"评估指标已保存至: results.txt")
 
     except Exception as e:
         logger.error(f"评估失败: {str(e)}")
