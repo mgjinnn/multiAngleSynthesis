@@ -52,7 +52,8 @@ def main():
     
     # 为每个子目录创建对应的 results 子目录
     total_generated = 0
-    
+    inference_times = []
+
     for i, subdir in enumerate(subdirs, 1):
         print(f"\n[{i}/{len(subdirs)}] 处理组: {subdir}")
         print("-" * 40)
@@ -78,6 +79,7 @@ def main():
             start_time = time.time()
             generator.generate(str(center_image_path), str(result_subdir))
             inference_time = time.time() - start_time
+            inference_times.append(inference_time)
             print(f"推理时间: {inference_time:.2f} 秒")
             print(f"成功生成图像到: {result_subdir}")
             total_generated += 1
@@ -85,7 +87,23 @@ def main():
             print(f"生成失败: {e}")
             import traceback
             traceback.print_exc()
-    
+
+    # 计算平均推理时间
+    if inference_times:
+        avg_inference_time = sum(inference_times) / len(inference_times)
+        print()
+        print(f"平均推理时间: {avg_inference_time:.2f} 秒 (共 {len(inference_times)} 组)")
+
+        # 如果平均时间超过 30 秒，写入 results.txt
+        if avg_inference_time > 30:
+            results_file = SCRIPT_DIR / "results.txt"
+            # 如果文件存在则先删除
+            if results_file.exists():
+                results_file.unlink()
+            with open(results_file, "w", encoding="utf-8") as f:
+                f.write("生成超时")
+            print(f"警告: 平均生成时间超过30秒，已写入 {results_file}")
+
     print()
     print("=" * 60)
     print(f"生成完成! 成功处理 {total_generated}/{len(subdirs)} 个数据组")
