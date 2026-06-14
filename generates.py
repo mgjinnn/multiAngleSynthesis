@@ -5,10 +5,11 @@
 
 import os
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from generate_images import generate
+from generate_images import ImageGenerator
 
 # 定义目录路径
 SCRIPT_DIR = Path(__file__).parent
@@ -35,6 +36,12 @@ def main():
         return
     
     print(f"发现 {len(subdirs)} 个数据组: {subdirs}")
+    print()
+    
+    # 初始化图像生成器并加载模型
+    generator = ImageGenerator()
+    print("正在加载模型...")
+    generator.load_model()
     print()
     
     # 清理旧的 results 目录
@@ -68,7 +75,10 @@ def main():
         
         # 调用 generate 函数生成 26 个角度的图像
         try:
-            generate(str(center_image_path), str(result_subdir))
+            start_time = time.time()
+            generator.generate(str(center_image_path), str(result_subdir))
+            inference_time = time.time() - start_time
+            print(f"推理时间: {inference_time:.2f} 秒")
             print(f"成功生成图像到: {result_subdir}")
             total_generated += 1
         except Exception as e:
