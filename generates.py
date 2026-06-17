@@ -94,8 +94,8 @@ def main():
         print()
         print(f"平均推理时间: {avg_inference_time:.2f} 秒 (共 {len(inference_times)} 组)")
 
-        # 如果平均时间超过 30 秒，写入 results.txt
-        if avg_inference_time > 30:
+        # 如果平均每张时间超过 30 秒，写入 results.txt
+        if avg_inference_time > 30 * 27:
             results_file = SCRIPT_DIR / "results.txt"
             # 如果文件存在则先删除
             if results_file.exists():
